@@ -1,3 +1,10 @@
+
 myPlotsAppFlutter/
+
 .vscode
 _vscode
+# Firebase configuration
+lib/firebase_options.dart
+google-services.json
+ios/Runner/GoogleService-Info.plist
+firebase.json

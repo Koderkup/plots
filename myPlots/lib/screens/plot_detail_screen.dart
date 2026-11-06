@@ -10,6 +10,16 @@ class PlotDetailScreen extends StatelessWidget {
 
   Color _color(String? hex) {
     if (hex == null || hex.isEmpty) return Colors.grey.shade300;
+    switch (hex) {
+      case 'red': return Colors.red;
+      case 'yellow': return Colors.yellow;
+      case 'green': return Colors.green;
+      case 'blue': return Colors.blue;
+      case 'orange': return Colors.orange;
+      case 'purple': return Colors.purple;
+      case 'pink': return Colors.pink;
+      case 'teal': return Colors.teal;
+    }
     final h = hex.replaceAll('#', '');
     try {
       return Color(int.parse('0xFF$h'));
@@ -61,9 +71,9 @@ class PlotDetailScreen extends StatelessWidget {
       if (context.mounted) Navigator.of(context).pop();
     }
   }
-  Future<void> _editApartment(BuildContext context, Plot plot, Apartment apt) async {
+    Future<void> _editApartment(BuildContext context, Plot plot, Apartment apt) async {
     String? color = apt.color;
-    String comment = apt.comment;
+    final commentCtrl = TextEditingController(text: apt.comment);
     final provider = context.read<PlotsProvider>();
 
     await showDialog(
@@ -89,17 +99,17 @@ class PlotDetailScreen extends StatelessWidget {
                   ),
                   const SizedBox(height: 16),
                   TextField(
+                    controller: commentCtrl,
                     decoration: const InputDecoration(labelText: 'Комментарий', border: OutlineInputBorder()),
                     maxLines: 2,
-                    onChanged: (v) => comment = v,
                   ),
                 ],
               ),
               actions: [
                 TextButton(onPressed: () => Navigator.of(dialogCtx).pop(), child: const Text('Отмена')),
                 ElevatedButton(
-                  onPressed: () async {
-                    final newEntrances = _updateApartment(plot.entrances, apt.id, color: color, comment: comment);
+                    onPressed: () async {
+                      final newEntrances = _updateApartment(plot.entrances, apt.id, color: color, comment: commentCtrl.text);
                     final ok = await provider.updatePlot(plot.copyWith(entrances: newEntrances));
                     if (!ok && context.mounted) {
                       ScaffoldMessenger.of(context).showSnackBar(
@@ -130,7 +140,8 @@ class PlotDetailScreen extends StatelessWidget {
           final plot = plots.plots.firstWhere((p) => p.id == plotId, orElse: () => throw Exception('not found'));
           return Padding(
             padding: const EdgeInsets.all(16),
-            child: Column(
+            child: SingleChildScrollView(
+              child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(plot.name, style: const TextStyle(fontSize: 22, fontWeight: FontWeight.bold)),
@@ -192,6 +203,7 @@ class PlotDetailScreen extends StatelessWidget {
                   ),
                 ),
               ],
+            ),
             ),
           );
         },

@@ -147,6 +147,11 @@ class _CreatePlotScreenState extends State<CreatePlotScreen> {
                 labelText: 'Название участка', border: OutlineInputBorder(),
               ),
               validator: (v) => (v == null || v.trim().isEmpty) ? 'Введите название' : null,
+              onChanged: (v) => _update((_) => PlotParams(
+                    name: v, entrances: p.entrances, floors: p.floors,
+                    apartmentsPerFloor: p.apartmentsPerFloor,
+                    startNumber: p.startNumber, numberingScheme: p.numberingScheme,
+                  )),
               onSaved: (v) => _update((_) => PlotParams(
                     name: v ?? '', entrances: p.entrances, floors: p.floors,
                     apartmentsPerFloor: p.apartmentsPerFloor,
