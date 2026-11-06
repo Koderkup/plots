@@ -33,9 +33,13 @@ class HomeScreen extends StatelessWidget {
         ],
       ),
       body: _buildBody(context, plots),
-      floatingActionButton: FloatingActionButton(
-        onPressed: plots.loading ? null : () => Navigator.of(context).pushNamed('/create-plot'),
-        child: const Icon(Icons.add),
+      floatingActionButtonLocation: FloatingActionButtonLocation.endFloat,
+      floatingActionButton: Padding(
+        padding: const EdgeInsets.only(bottom: 24, right: 16),
+        child: FloatingActionButton(
+          onPressed: plots.loading ? null : () => Navigator.of(context).pushNamed('/create-plot'),
+          child: const Icon(Icons.add),
+        ),
       ),
     );
   }

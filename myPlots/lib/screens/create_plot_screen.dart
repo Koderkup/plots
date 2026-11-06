@@ -53,6 +53,7 @@ class _CreatePlotScreenState extends State<CreatePlotScreen> {
             SizedBox(
               width: 70,
               child: TextFormField(
+                key: ValueKey('num_$value'),
                 initialValue: value.toString(),
                 keyboardType: TextInputType.number,
                 textAlign: TextAlign.center,
@@ -75,17 +76,18 @@ class _CreatePlotScreenState extends State<CreatePlotScreen> {
   }
 
   Widget _numBtn(IconData icon, VoidCallback onPressed, bool disabled) {
-    return Container(
-      width: 44, height: 44,
-      decoration: BoxDecoration(
-        color: disabled ? Colors.grey.shade200 : Colors.grey.shade100,
-        borderRadius: BorderRadius.circular(22),
-        border: Border.all(color: Colors.grey.shade300),
-      ),
-      child: IconButton(
-        icon: Icon(icon, color: disabled ? Colors.grey : Colors.blue, size: 20),
-        onPressed: disabled ? null : onPressed,
-        constraints: const BoxConstraints(), padding: EdgeInsets.zero,
+    return InkWell(
+      onTap: disabled ? null : onPressed,
+      child: Container(
+        width: 44, height: 44,
+        decoration: BoxDecoration(
+          color: disabled ? Colors.grey.shade200 : Colors.grey.shade100,
+          borderRadius: BorderRadius.circular(22),
+          border: Border.all(color: Colors.grey.shade300),
+        ),
+        child: Center(
+          child: Icon(icon, color: disabled ? Colors.grey : Colors.blue, size: 20),
+        ),
       ),
     );
   }
