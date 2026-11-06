@@ -183,7 +183,7 @@ class _CreatePlotScreenState extends State<CreatePlotScreen> {
                     )), min: 1, max: 1000),
             const SizedBox(height: 16),
             DropdownButtonFormField<String>(
-              value: p.numberingScheme,
+              initialValue: p.numberingScheme,
               decoration: const InputDecoration(
                 labelText: 'Схема нумерации', border: OutlineInputBorder(),
               ),
